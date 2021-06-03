@@ -1,0 +1,209 @@
+/*
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+rule NetworkAdminUser {
+    description: "Grant business network administrators full access to user resources"
+    participant: "org.hyperledger.composer.system.NetworkAdmin"
+    operation: ALL
+    resource: "**"
+    action: ALLOW
+}
+
+rule NetworkAdminSystem {
+    description: "Grant business network administrators full access to system resources"
+    participant: "org.hyperledger.composer.system.NetworkAdmin"
+    operation: ALL
+    resource: "org.hyperledger.composer.system.**"
+    action: ALLOW
+}
+
+rule ControllerRule1 {
+    description: "Grant business network administrators full access to user resources"
+    participant: "org.example.empty.ElectionController"
+    operation: ALL
+    resource: "**"
+    action: ALLOW
+}
+
+rule ControllerRule2 {
+  description: "Grant election controllers full access to system resources"
+  participant: "org.example.empty.ElectionController"
+  operation: ALL
+  resource: "org.hyperledger.composer.system.**"
+  action: ALLOW
+}
+
+rule AdminRule 
+{
+    description: "Grant election administrators full access to system resources"
+    participant: "org.example.empty.ElectionAdmin"
+    operation: ALL
+    resource: "org.hyperledger.composer.system.**"
+    action: ALLOW
+}
+
+rule AdmRule1
+{
+    description: "Admin participant can perform all operations on the Voter asset"
+    participant: "org.example.empty.ElectionAdmin"
+    operation: ALL
+    resource: "org.example.empty.Voter"
+    action: ALLOW
+}
+
+rule AdmRule2
+{
+    description: "Admin participant can perform all operations on the Candidate asset"
+    participant: "org.example.empty.ElectionAdmin"
+    operation: ALL
+    resource: "org.example.empty.Candidate"
+    action: ALLOW
+}
+
+rule AdmRule3
+{
+    description: "Admin participant can perform all operations on the Constituency asset"
+    participant: "org.example.empty.ElectionAdmin"
+    operation: ALL
+    resource: "org.example.empty.Constituency"
+    action: ALLOW
+}
+
+rule AdmRule4
+{
+    description: "Admin participant can perform all operations on the Party asset"
+    participant: "org.example.empty.ElectionAdmin"
+    operation: ALL
+    resource: "org.example.empty.Party"
+    action: ALLOW
+}
+
+rule AdmRule5
+{
+    description: "Admin participant can perform all operations on the PollingStation participant"
+    participant: "org.example.empty.ElectionAdmin"
+    operation: ALL
+    resource: "org.example.empty.PollingStation"
+    action: ALLOW
+}
+
+rule AdmRule6
+{
+    description: "Admin participant can perform only create operations on the PollingStation participant"
+    participant: "org.example.empty.ElectionAdmin"
+    operation: CREATE
+    resource: "org.example.empty.ElectionResults"
+    action: ALLOW
+}
+
+rule AdmRule7
+{
+  description: "Admin participant cannot cast a vote"
+  participant: "org.example.empty.ElectionAdmin"
+  operation: ALL
+  resource: "org.example.empty.vote"
+  action: DENY
+}
+
+rule AdmRule8
+{
+  description: "Admin participant cannot perform any operation with the StartElection transaction"
+  participant: "org.example.empty.ElectionAdmin"
+  operation: ALL
+  resource: "org.example.empty.StartElection"
+  action: DENY
+}
+
+rule AdmRule9
+{
+  description: "Admin participant cannot perform any operation with the StopElection transaction"
+  participant: "org.example.empty.ElectionAdmin"
+  operation: ALL
+  resource: "org.example.empty.StopElection"
+  action: DENY
+}
+
+rule PollRule {
+    description: "Grant PollingStation participant full access to system resources"
+    participant: "org.example.empty.PollingStation"
+    operation: ALL
+    resource: "org.hyperledger.composer.system.**"
+    action: ALLOW
+}
+
+rule polRule1 {
+    description: "PollingStation participant can update the voter asset on the vote cast transaction only"
+    participant: "org.example.empty.PollingStation"
+    operation: UPDATE
+    resource: "org.example.empty.Voter"
+    transaction: "org.example.empty.vote"
+    action: ALLOW
+}
+
+rule polRule2 {
+    description: "PollingStation participant can read the voter asset"
+    participant: "org.example.empty.PollingStation"
+    operation: READ
+    resource: "org.example.empty.Voter"
+    action: ALLOW
+}
+
+rule polRule3 {
+    description: "PollingStation participant can read the candidate asset"
+    participant: "org.example.empty.PollingStation"
+    operation: READ
+    resource: "org.example.empty.Candidate"
+    action: ALLOW
+}
+
+rule polRule4 {
+    description: "PollingStation participant can read the party asset"
+    participant: "org.example.empty.PollingStation"
+    operation: READ
+    resource: "org.example.empty.Party"
+    action: ALLOW
+}
+
+rule polRule5 {
+    description: "PollingStation participant can read and update the ElectionResults asset on the vote cast transaction only"
+    participant: "org.example.empty.PollingStation"
+    operation: READ, UPDATE
+    resource: "org.example.empty.ElectionResults"
+    transaction: "org.example.empty.vote"
+    action: ALLOW
+}
+
+rule polRule6 {
+    description: "PollingStation participant can read the constituency asset"
+    participant: "org.example.empty.PollingStation"
+    operation: READ
+    resource: "org.example.empty.Constituency"
+    action: ALLOW
+}
+
+rule polRule7 {
+    description: "PollingStation participant can create the voting transaction"
+    participant: "org.example.empty.PollingStation"
+    operation: CREATE
+    resource: "org.example.empty.vote"
+    action: ALLOW
+}
+
+rule polRule8 {
+    description: "PollingStation participant can create the voter verification transaction"
+    participant: "org.example.empty.PollingStation"
+    operation: CREATE
+    resource: "org.example.empty.VerifyVoter"
+    action: ALLOW
+}

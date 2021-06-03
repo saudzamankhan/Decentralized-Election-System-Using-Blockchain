@@ -1,0 +1,178 @@
+/*
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+namespace org.example.empty
+
+participant ElectionController identified by controllerID
+{
+  o String controllerID
+  o String name
+}
+
+asset ElectionState identified by electionID
+{
+  o String electionID
+  o Boolean election_status default = false
+}
+
+transaction StartElection{}
+transaction StopElection{}
+  
+asset Voter identified by voterCNIC 
+{
+  o String voterCNIC
+  o String fullName
+  o String password
+  o String contactno
+  --> Constituency constituency
+  o Boolean voted default = false
+}  
+
+transaction addVoter
+{
+  o Voter voter
+}
+  
+transaction editVoter
+{
+  --> Voter old_voter
+  o String new_fullName
+  o String new_password
+  o String new_contactno
+  --> Constituency new_constituency
+  o Boolean new_voted default = false
+}  
+ 
+transaction deleteVoter
+{
+  --> Voter voter
+}
+  
+asset Party identified by partyname
+{
+  o String partyname
+  o String registered_date
+}
+
+transaction editParty
+{
+  --> Party old_party
+  //o String new_partyname
+  o String new_registered_date
+}  
+
+transaction deleteParty
+{
+  --> Party party
+}  
+  
+asset Constituency identified by constituencyID
+{
+  o String constituencyID
+  o String cityname
+  o Integer no_of_candidates_registered default = 0
+}
+ 
+transaction editConstituency
+{
+  --> Constituency old_constituency
+  //o String new_constituencyID
+  o String new_cityname
+  o Integer new_no_of_candidates_registered default = 0
+}
+
+transaction deleteConstituency
+{
+  --> Constituency constituency
+}
+  
+asset Candidate identified by candidateCNIC
+{
+  o String candidateCNIC
+  o String fullName
+  --> Party party
+  --> Constituency constituency
+}
+
+asset ElectionResults identified by candidateCNIC
+{
+   o String candidateCNIC
+   o Integer totalVotes default = 0
+}
+  
+transaction editCandidate
+{
+  --> Candidate old_candidate
+ // o String new_candidateCNIC
+  o String new_fullName
+  o Integer new_totalVotes default = 0
+  --> Party new_party
+  --> Constituency new_constituency
+}
+
+transaction deleteCandidate
+{
+  --> Candidate candidate
+} 
+  
+participant ElectionAdmin identified by adminCNIC
+{
+  o String adminCNIC
+  o String name
+  o String city
+  o String contactno
+}
+  
+transaction editAdmin
+{
+  --> ElectionAdmin old_admin
+   o String new_name
+   o String new_city
+   o String new_contactno
+} 
+  
+transaction deleteAdmin
+{
+  --> ElectionAdmin electionadmin
+}
+
+participant PollingStation identified by pollID
+{
+  o String pollID
+  o String city
+}
+
+@returns(Boolean)  
+transaction VerifyVoter
+{
+  o String voterCNIC
+}
+  
+transaction editPollingStation
+{
+  --> PollingStation old_pollingstation
+  //o String new_pollID
+  o String new_city
+} 
+  
+transaction deletePollingStation
+{
+  --> PollingStation pollingstation
+}
+  
+transaction vote 
+{
+  --> Voter voter
+  --> ElectionResults results
+}

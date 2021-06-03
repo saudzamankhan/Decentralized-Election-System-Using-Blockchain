@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Election</title>
+   
+    <script src = "/javascripts/jquery.js"></script>
+    <!-- bootstrap Lib -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <!-- datatable lib -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css">
+    <!-- <script src="https://code.jquery.com/jquery-1.12.4.js"></script> -->
+    <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+
+    <script src = "/javascripts/display_parties.js"></script>
+    <link rel='stylesheet' href='/stylesheets/dispparty.css' />
+
+    <link rel="shortcut icon" type="image/x-icon" href="https://static.codepen.io/assets/favicon/favicon-aec34940fbc1a6e787974dcd360f2c6b63348d4b1f4e06c77743096d55480f33.ico">
+    <link rel="mask-icon" type="" href="https://static.codepen.io/assets/favicon/logo-pin-8f3771b1072e3c38bd662872f6b673a722f4b3ca2421637d5596661b4e2132cc.svg" color="#111">   
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
+    <link rel="stylesheet" href="/stylesheets/style.css">
+</head>
+<body translate="no">
+      
+  <div id="viewport">
+    <div id="sidebar">
+      <header>
+      <a href="#">Election</a>
+      </header>
+      <ul class="nav">
+          <li>
+              <a href="/">
+              <i class="zmdi zmdi-view-dashboard"></i> Home
+              </a>
+              </li>
+      <li>
+      <a href="/displayconstituencies">
+      <i class="zmdi zmdi-view-dashboard"></i> Constituencies
+      </a>
+      </li>
+      <li>
+      <a href="/displaycandidates">
+      <i class="zmdi zmdi-link"></i> Candidates
+      </a>
+      </li>
+      <li>
+      <a href="/displayparties">
+      <i class="zmdi zmdi-widgets"></i> Parties
+      </a>
+      </li>
+      <li>
+      <a href="/displaypollingstations">
+      <i class="zmdi zmdi-calendar"></i> PollingStations
+      </a>
+      </li>
+      <li>
+      <a href="/displayadmins">
+      <i class="zmdi zmdi-calendar"></i> Admins
+      </a>
+      </li>
+      <li>
+      <a href="/displayvoters">
+      <i class="zmdi zmdi-info-outline"></i> Voters
+      </a>
+      </li>
+      <li>
+      <a href="/displayresults">
+      <i class="zmdi zmdi-settings"></i> Election Results
+      </a>
+      </li>
+      </ul>
+      </div>
+  
+  <div id="content">
+  <nav class="navbar navbar-default">
+  <div class="container-fluid">
+  <ul class="nav navbar-nav navbar-right">
+  <li><a href="#">Log out</a></li>
+  </ul>
+  </div>
+  </nav>
+  <div class="container-fluid">
+    <div class="container">
+      <h1>Manage Parties</h1>
+      <button id='addButton'>Add Party</button>
+      <table id="example" class="display" cellspacing="0" width="100%">
+          <thead>
+          <tr>
+              <th>Party name</th>
+              <th>Registered on</th>
+              <th>Command</th>
+          </tr>
+          </thead>
+      </table>
+  </div>
+
+
+  <!-- The Modal -->
+  <div id="editModal" class="modal">
+      <!-- Modal content -->
+      <div class="modal-content">
+         <form id="msform">
+          <!-- fieldsets -->
+          <fieldset>
+            <h1 class="fs-title">Edit Party</h1>
+            <input type="text" id="editpartyname" name="editpartyname" placeholder="Party name" readonly/>
+          <input type="text" id="editregdate" name="editregdate" placeholder="Registration date" />
+            <input type="button" name="submit" id="updateformpress" class="submit action-button" value="Submit" />
+            <input type="button" name="close" class="closed action-button" value="Close" />
+          </fieldset>
+        </form>
+      </div>
+    </div>
+
+  <!-- The Modal -->
+  <div id="addModal" class="modal">
+    <!-- Modal content -->
+    <div class="modal-content">
+       <form id="msform">
+        <!-- fieldsets -->
+        <fieldset>
+          <h1 class="fs-title">Add Party</h1>
+          <input type="text" id="addpartyname" name="addpartyname" onkeyup='this.value = this.value.toUpperCase()' placeholder="Party name"/>
+          <input type="text" id="addregdate" name="addregdate" placeholder="Registration date" />
+          <input type="button" name="submit" id="addformpress" class="add action-button" value="Add" />
+          <input type="button" name="close" class="closed action-button" value="Close" />
+        </fieldset>
+      </form>
+    </div>
+  </div>
+  </div>
+  </div>
+  </div>
+  
+  </body>
+</html>
